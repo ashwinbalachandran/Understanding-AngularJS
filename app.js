@@ -1,7 +1,27 @@
-var myApp = angular.module('myApp', []);
+var myApp = angular.module('myApp', ['ngRoute']);
 
-myApp.controller('mainController', ['$scope', '$timeout', '$filter', function($scope, $timeout, $filter) {
+myApp.config(function ($routeProvider) {
+    $routeProvider
+    .when('/', {
+        templateUrl: 'pages/main.html',
+        controller: 'mainController'
+    })
+    .when('/second', {
+        templateUrl: 'pages/second.html',
+        controller: 'secondController'
 
+    })
+    .when('/second/:num', {
+        templateUrl: 'pages/second.html',
+        controller: 'secondController'
+
+    })
+})
+
+myApp.controller('mainController', ['$scope', '$log', '$timeout', '$filter', '$location', function($scope, $log, $timeout, $filter, $location) {
+
+
+    $log.info($location.path());
     $scope.name = 'Ashwin Balachandran';
     $scope.motive = '';
     $scope.maxMotiveLength = 7;
@@ -25,3 +45,8 @@ myApp.controller('mainController', ['$scope', '$timeout', '$filter', function($s
     }, 2000);
     
 }]);
+
+myApp.controller('secondController', ['$scope', '$log', '$routeParams', function($scope, $log, $routeParams){
+
+    $scope.num = $routeParams.num || 0;
+}])
