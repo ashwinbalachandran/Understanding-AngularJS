@@ -79,16 +79,6 @@ myApp.directive('searchResult', function () {
       personObject: '=',
       formattedAddressFunction: '&'
     },
-    link: function (scope, element, attrs) {
-      console.log('PostLinker');
-
-      console.log(scope);
-
-      if (scope.personObject.name == 'Anish Kaul') {
-        element.removeAttr('class');
-      }
-
-      console.log(element);
-    }
+    transclude: true
   };
 });
