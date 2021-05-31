@@ -1,11 +1,9 @@
 <label>Search</label>
-<input type = 'text' value = 'Doe'/>
+<input type='text' value='Doe' />
 
 <h3>Search Results</h3>
 
 <div class="list-group">
-    <search-result></search-result>
-    <div search-result></div>
-    <div class='search-result'></div>
-    <!-- directive: search-result -->
+    <search-result person-object="person" formatted-address-function="formattedAddress(person)"
+        ng-repeat='person in people'></search-result>
 </div>
