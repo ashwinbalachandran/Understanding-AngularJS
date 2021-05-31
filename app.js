@@ -18,11 +18,23 @@ myApp.config(function ($routeProvider) {
     })
 })
 
-myApp.controller('mainController', ['$scope', '$log', '$timeout', '$filter', '$location', function($scope, $log, $timeout, $filter, $location) {
+myApp.service('serviceOne', function(){
+    let self = this;
+    this.name = 'Service owner';
+    this.nameLength = function() {
+        return self.name.length;
+    }
+})
+
+myApp.controller('mainController', ['$scope', '$log', '$timeout', '$filter', '$location', 'serviceOne', function($scope, $log, $timeout, $filter, $location, serviceOne) {
 
 
-    $log.info($location.path());
-    $scope.name = 'Ashwin Balachandran';
+    $scope.name = serviceOne.name;
+
+    $scope.$watch('name', function(){
+        serviceOne.name = $scope.name;
+    })
+
     $scope.motive = '';
     $scope.maxMotiveLength = 7;
     $scope.rules = [
@@ -41,12 +53,15 @@ myApp.controller('mainController', ['$scope', '$log', '$timeout', '$filter', '$l
 
     $timeout(function () {
         $scope.name = 'Silence';
-        console.log('Fatta G?');
     }, 2000);
     
 }]);
 
-myApp.controller('secondController', ['$scope', '$log', '$routeParams', function($scope, $log, $routeParams){
+myApp.controller('secondController', ['$scope', '$log', '$routeParams', 'serviceOne', function($scope, $log, $routeParams, serviceOne){
 
+    $scope.name = serviceOne.name;
+    $scope.$watch('name', function(){
+        serviceOne.name = $scope.name;
+    }) 
     $scope.num = $routeParams.num || 0;
 }])
