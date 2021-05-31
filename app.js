@@ -79,23 +79,16 @@ myApp.directive('searchResult', function () {
       personObject: '=',
       formattedAddressFunction: '&'
     },
-    compile: function (elem, attrs) {
-      console.log('Copmiling');
-      console.log(elem.html());
+    link: function (scope, element, attrs) {
+      console.log('PostLinker');
 
-      return {
-        post: function (scope, element, attrs) {
-          console.log('PostLinker');
+      console.log(scope);
 
-          console.log(scope);
+      if (scope.personObject.name == 'Anish Kaul') {
+        element.removeAttr('class');
+      }
 
-          if (scope.personObject.name == 'Anish Kaul') {
-            element.removeAttr('class');
-          }
-
-          console.log(element);
-        }
-      };
+      console.log(element);
     }
   };
 });
