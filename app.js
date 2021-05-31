@@ -28,40 +28,18 @@ myApp.service('serviceOne', function(){
 
 myApp.controller('mainController', ['$scope', '$log', '$timeout', '$filter', '$location', 'serviceOne', function($scope, $log, $timeout, $filter, $location, serviceOne) {
 
-
-    $scope.name = serviceOne.name;
-
-    $scope.$watch('name', function(){
-        serviceOne.name = $scope.name;
-    })
-
-    $scope.motive = '';
-    $scope.maxMotiveLength = 7;
-    $scope.rules = [
-        { rulename: 'Must be 7 characters'},
-        { rulename: 'Must not be used previously'},
-        { rulename: 'Must be hard for the world to remeber'},
-    ]
-
-    $scope.wordsInYourMouth = function() {
-        return $filter('lowercase')(`never ${$scope.motive}`);
-    }
-
-    $scope.alertClick = function() {
-        alert('I hate alerts sorry g');
-    }
-
-    $timeout(function () {
-        $scope.name = 'Silence';
-    }, 2000);
     
 }]);
 
 myApp.controller('secondController', ['$scope', '$log', '$routeParams', 'serviceOne', function($scope, $log, $routeParams, serviceOne){
 
-    $scope.name = serviceOne.name;
-    $scope.$watch('name', function(){
-        serviceOne.name = $scope.name;
-    }) 
-    $scope.num = $routeParams.num || 0;
 }])
+
+
+myApp.directive("searchResult", function() {
+    return {
+        restrict: 'AECM',
+        template: '<a href="#" class="list-group-item"><h4 class="list-group-item-heading">Doe, John</h4><p class="list-group-item-text">555 Main St., New York, NY 11111</p></a>',
+        replace: true
+    }
+});
